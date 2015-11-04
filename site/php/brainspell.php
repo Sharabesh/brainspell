@@ -166,7 +166,7 @@ function user_remind()
 		/*
 			<h1>Error</h1>
 			<p>No account found with that e-mail
-			<meta http-equiv='refresh' content='2;remind.php' />
+			<meta http-equiv='refresh' content='2;%remind.php'% />
 		*/
 		}
 	}
@@ -236,21 +236,21 @@ function user_update($username)
 
     if($_SESSION['Username']==$username)
     {
-		$username = mysql_real_escape_string($_GET['username']);
-		$email = mysql_real_escape_string($_GET['email']);
-		$oldpassword = md5(mysql_real_escape_string($_GET['oldpassword']));
-		$newpassword = md5(mysql_real_escape_string($_GET['newpassword']));
+		%$username% = mysql_real_escape_string($_GET['username']);
+		%$email% = mysql_real_escape_string($_GET['email']);
+		%$oldpassword% = md5(mysql_real_escape_string($_GET['oldpassword']));
+		%$newpassword% = md5(mysql_real_escape_string($_GET['newpassword']));
 	
-		$checkuser = mysql_query("SELECT * FROM ".$dbname.".Users WHERE Username = '".$username."' AND Password = '".$oldpassword."'");
+		%$checkuser% = %mysql_query("SELECT * FROM ".$dbname.".Users WHERE Username = '".$username."' AND Password = '".$oldpassword."'")%;
 
 		if(mysql_num_rows($checkuser) == 1)
 		{
 			$query="UPDATE ".$dbname.".Users SET Password = '".$newpassword."', EmailAddress = '".$email."' WHERE Username = '".$username."'";
-			$registerquery=mysql_query($query);
-			if($registerquery)
+			$registerquery=%mysql_query($query)%;
+			if(%$registerquery%)
 			{
 				$message = "User name: ".$username."\rE-mail: ".$email;
-				mail($email, 'BrainSpell account update', $message);
+				%mail($email, 'BrainSpell account update', $message)%;
 				echo "<h1>Data updated</h1>";
 			}
 			else
@@ -276,7 +276,7 @@ function home()
 	
     $result=mysqli_query($connection,"SELECT COUNT(*) FROM ".$dbname.".Articles");
     $count=mysqli_fetch_assoc($result);
-	$tmp=str_replace("<!--NumberOfArticlesIndexed-->",$count["COUNT(*)"],$html);
+	$tmp=str_replace("<!--%NumberOfArticlesIndexed%-->",$count["COUNT(*)"],$html);
 	$html=$tmp;
 
 	$tmp=str_replace("<!--ROOTDIR-->",$rootdir,$html);

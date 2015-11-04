@@ -13,6 +13,7 @@ $posts=json_decode($json);
 }
 p a {
 	color: #ed8000;
+	font-family: sans-serif;
 }
 </style>
 
