@@ -35,8 +35,20 @@
 
 <button id='give-me-something'>Give me somthing</button>
 <script>
-$('#give-me-something').click(function () { alert('Yo!') });
+$('#give-me-something').click(function () {
+    var filename="Test";
+    var csvfile=["Articles", "\narticle1", "\narticle2", "\narticle3"]
+    var csvData = 'data:text/json;charset=utf-8,'+ encodeURIComponent(csvfile);
+    var a = document.createElement('a');
+    a.href = csvData;
+    a.download = filename+'.csv';
+    document.body.appendChild(a);
+    a.click();
+});
 </script>
+
+
+
 
 </body>
 
