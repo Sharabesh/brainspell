@@ -702,3 +702,9 @@ function render() {
 	// actually render the scene
 	renderer.render( scene, camera );
 }
+
+function result_to_csv() {
+	var outputString = "";
+	$('.paper-stuff a').each(function() { outputString += $(this).text() + ",\n"; });
+	return outputString;
+}
