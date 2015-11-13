@@ -10,6 +10,19 @@
 		</fieldset>
 	</form>
 	<div style="text-align:right">9179 articles indexed</div>
+	<button type="button"; style="background:orange; font-weight:bold"; onclick="buttonclick">Download Articles</button>
+	<script>
+('Download Articles').click(function buttonclick() {
+    var filename="Test";
+    var csvfile=["Articles", "\narticle1", "\narticle2", "\narticle3"]
+    var csvData = 'data:text/json;charset=utf-8,'+ encodeURIComponent(csvfile);
+    var a = document.createElement('a');
+    a.href = csvData;
+    a.download = filename+'.csv';
+    document.body.appendChild(a);
+    a.click();
+});
+	</script>
 	</td></tr>
 	</table>
 </div>
