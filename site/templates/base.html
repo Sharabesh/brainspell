@@ -128,28 +128,10 @@
 	</div>
 </div>
 
-<style>
-#button_for_download {
-	background: orange;
-	color: white;
-	margin: 10px;
-	float: right;
-	padding: 8px;
-	font-weight: 700;
-	border-radius: 4px;
-}
-</style>
-
-<script language="javascript" type="text/javascript">
+<script src="js/download.js"></script>
+<script>
 $('#button_for_download').click(function () {
-    var filename="Test";
-    var csvfile = result_to_csv();
-    var csvData = 'data:text/json;charset=utf-8,'+ encodeURIComponent(csvfile);
-    var a = document.createElement('a');
-    a.href = csvData;
-    a.download = filename+'.csv';
-    document.body.appendChild(a);
-    a.click();
+    result_to_csv();
 });
 </script>
 

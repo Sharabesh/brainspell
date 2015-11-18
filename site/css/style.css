@@ -368,3 +368,13 @@ a.nav:hover {
   right: 20px;
   bottom: 10px;
   padding: 0px; }
+
+#button_for_download {
+  background: orange;
+  color: white;
+  margin: 10px;
+  float: right;
+  padding: 8px;
+  font-weight: 700;
+  border-radius: 4px;
+}
