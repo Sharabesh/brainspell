@@ -10,12 +10,16 @@ function getSearchString() {
 }
 
 function result_to_csv() {
-	var filename= "SearchResult_" + getSearchString();
-	var csvfile = "Titles, \n";
-	$('.paper-stuff a').each(function() { 
-		csvfile += $(this).text() + ", \n";
+	if(searchString == null) {
+		var filename = "SearchResult_DefaultPage";
+	} else {
+		var filename = "SearchResult_" + getSearchString();
+	}
+	var csvfile = "Titles, Reference, \n";
+	$('.paper-stuff').each(function() { 
+		csvfile += $(this).find('a').text() + ",";
+		csvfile += '"' + $(this).find('.info').text() + '", \n';
 	});
-	//$('.paper-stuff p').each(function() { csvfile += $(this).text() + ",\n"; });
 	var csvData = 'data:text/json;charset=utf-8,'+ encodeURIComponent(csvfile);
 	var a = document.createElement('a');
 	a.href = csvData;
