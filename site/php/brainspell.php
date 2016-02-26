@@ -316,7 +316,7 @@ function about()
 function blog()
 {
 	$html = file_get_contents($_SERVER['DOCUMENT_ROOT']."/templates/base.html");
-	$blog=file_get_contents("http://brainspell.org/php/blog.php");
+	$blog=file_get_contents($_SERVER['DOCUMENT_ROOT']."/templates/blog.html");
 	
 	$tmp=str_replace("<!--Core-->",$blog,$html);
 	$html=$tmp;
