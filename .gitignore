@@ -1,9 +1,5 @@
-
 data/
-
 php/base.php
-
 dockerfiles/tmp
-
 .DS_Store
-
+*.lock.file
