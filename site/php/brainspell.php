@@ -534,6 +534,7 @@ function article_json_doi($doi)
     mysqli_free_result($result);
 }
 function search_lucene($query)
+	#Now we are using also database querying to get locations 
 {
 	global $rootdir;
 	global $dbname;
@@ -1551,4 +1552,43 @@ function get_log($query)
 		}
 	}
 }
+
+
+function location_search($query)
+	# Assumes both $query and locations are stores as arrays 
+	{
+	global $connection ; 
+	global $dbname ; 
+	$Experiments = "SELECT Experiments FROM Articles"; 
+	$Dictionary = array();
+	$output = array();
+	foreach($Experiments as $item) {
+		array_push($Dictionary,$item[0])
+	}
+	foreach($Dictionary as $list) {
+		foreach($list as $location_set){
+			if (similar($query,$location_set)) {
+				array_push($output,$list);
+			}
+		}
+	}
+	return $output; 
+
+function similar($query,$location) 
+{
+	$output = array()
+	foreach(range(0,2) as $i){
+		foreach(range($query[$i]-10,$query[$i]+10) as $point){
+			if($point == $location[$i]){
+				array_push($output,true);}}}
+	if(count($output)==3){
+		return true;}
+	else{
+		return False; 
+	}}
+	
+
+
+
+
 ?>
