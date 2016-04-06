@@ -1581,10 +1581,10 @@ function similar($query,$location)
 		foreach(range($query[$i]-10,$query[$i]+10) as $point){
 			if($point == $location[$i]){
 				array_push($output,true);}}}
-	if(count($output)==3){
-		return true;}
+	if(in_array(false,$output)) {
+		return false;}
 	else{
-		return False; 
+		return true; 
 	}}
 	
 
