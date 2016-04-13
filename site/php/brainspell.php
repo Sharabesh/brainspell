@@ -1563,7 +1563,7 @@ function location_search($query)
 	$Dictionary = array();
 	$output = array();
 	foreach($Experiments as $item) {
-		array_push($Dictionary,$item[0])
+		array_push($Dictionary,$item[0]);
 	}
 	foreach($Dictionary as $list) {
 		foreach($list as $location_set){
@@ -1573,10 +1573,10 @@ function location_search($query)
 		}
 	}
 	return $output; 
-
+}
 function similar($query,$location) 
 {
-	$output = array()
+	$output = array();
 	foreach(range(0,2) as $i){
 		foreach(range($query[$i]-10,$query[$i]+10) as $point){
 			if($point == $location[$i]){
