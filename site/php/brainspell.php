@@ -1557,8 +1557,15 @@ function get_log($query)
 function location_search($query)
 	# Assumes both $query and locations are stores as arrays 
 	{
-	global $connection ; 
-	global $dbname ; 
+	global $rootdir;
+	global $dbname;
+	global $connection;
+	$html = file_get_contents($_SERVER['DOCUMENT_ROOT'].$rootdir."templates/base.html");
+	$tmp=str_replace("<!--Core-->",$search,$html);
+	$html=$tmp;
+	
+	$tmp=str_replace("<!--ROOTDIR-->",$rootdir,$html);
+	$html=$tmp;
 	$Experiments = "SELECT Experiments FROM Articles"; 
 	$Dictionary = array();
 	$output = array();
@@ -1572,7 +1579,12 @@ function location_search($query)
 			}
 		}
 	}
-	return $output; 
+	$output; 
+	$tmp=str_replace("<!--%SearchResultsNumber%-->",count($output),$html);
+	$html=$tmp;
+	$tmp=str_replace("<!--%SearchResultsMultiplicity%-->",(count($output)>1)?"s":"",$html);
+	$html=$tmp;
+	print $html;
 }
 function similar($query,$location) 
 {
