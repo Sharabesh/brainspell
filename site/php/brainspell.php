@@ -1557,13 +1557,19 @@ function get_log($query)
 function location_search($query)
 	# Assumes both $query and locations are stores as arrays 
 	{
-	global $connection ; 
-	global $dbname ; 
+	global $rootdir;
+	global $dbname;
+	global $connection;
+	$html = file_get_contents($_SERVER['DOCUMENT_ROOT'].$rootdir."templates/base.html");
+	$tmp=str_replace("<!--Core-->",$search,$html);
+	$html=$tmp;
+	$tmp=str_replace("<!--ROOTDIR-->",$rootdir,$html);
+	$html=$tmp;
 	$Experiments = "SELECT Experiments FROM Articles"; 
 	$Dictionary = array();
 	$output = array();
 	foreach($Experiments as $item) {
-		array_push($Dictionary,$item[0])
+		array_push($Dictionary,$item[0]);
 	}
 	foreach($Dictionary as $list) {
 		foreach($list as $location_set){
@@ -1571,23 +1577,22 @@ function location_search($query)
 				array_push($output,$list);
 			}
 		}
-	}
-	return $output; 
-
+	} 
+	$tmp=str_replace("<!--%SearchResultsNumber%-->",count($output),$html);
+	$html=$tmp;
+	$tmp=str_replace("<!--%SearchResultsMultiplicity%-->",(count($output)>1)?"s":"",$html);
+	$html=$tmp;
+	print $html;
+}
+	
 function similar($query,$location) 
 {
-	$output = array()
-	foreach(range(0,2) as $i){
-		foreach(range($query[$i]-10,$query[$i]+10) as $point){
-			if($point == $location[$i]){
-				array_push($output,true);}}}
-	if(count($output)==3){
-		return true;}
-	else{
-		return False; 
-	}}
-	
-
+	$output = array();
+	foreach(range(0,2) as $coordinate){
+		array_push(pow($query[$i]-$location[$i],2));
+	}
+	return array_sum($output)<5;
+}
 
 
 
