@@ -540,6 +540,21 @@ function search_lucene($query)
 	global $dbname;
 	global $connection;
 
+	#BEGIN WHAT I ADD 
+	###########
+	#         #
+	###########
+	// $hits = "SELECT info->>$query FROM Articles WHERE info->>'Experiments' LIKE '%$query'";
+
+
+
+
+
+	
+	############
+	#		   #
+	############
+	#END WHAT I ADD 
 	$html = file_get_contents($_SERVER['DOCUMENT_ROOT'].$rootdir."templates/base.html");
 	$search = file_get_contents($_SERVER['DOCUMENT_ROOT'].$rootdir."templates/search.html");
 	$tmp=str_replace("<!--Core-->",$search,$html);
@@ -548,8 +563,9 @@ function search_lucene($query)
 	$tmp=str_replace("<!--ROOTDIR-->",$rootdir,$html);
 	$html=$tmp;
 
-	$index=getIndex_lucene();
-	$hits=$index->find($query);
+	//$index=getIndex_lucene(); #I can change this function to get to my function 
+	$hits = location_search($query);
+	//$hits=$index->find($query); #I'm Making a Change Here 
 	if (!empty($hits))
 	{
 		/*
@@ -1557,31 +1573,88 @@ function get_log($query)
 function location_search($query)
 	# Assumes both $query and locations are stores as arrays 
 	{
+
 	global $rootdir;
 	global $dbname;
 	global $connection;
+	$search = file_get_contents($_SERVER['DOCUMENT_ROOT'].$rootdir."templates/search.html");
 	$html = file_get_contents($_SERVER['DOCUMENT_ROOT'].$rootdir."templates/base.html");
 	$tmp=str_replace("<!--Core-->",$search,$html);
 	$html=$tmp;
 	$tmp=str_replace("<!--ROOTDIR-->",$rootdir,$html);
 	$html=$tmp;
-	$Experiments = "SELECT Experiments FROM Articles"; 
-	$Dictionary = array();
-	$output = array();
-	foreach($Experiments as $item) {
-		array_push($Dictionary,$item[0]);
+
+
+	$Experiments = mysqli_query($connection,"SELECT Experiments FROM Articles");
+	$Results = array();
+	while($row = mysqli_fetch_array($Experiments))
+	{
+		array_push($Results,$row);
 	}
-	foreach($Dictionary as $list) {
-		foreach($list as $location_set){
-			if (similar($query,$location_set)) {
-				array_push($output,$list);
-			}
-		}
-	} 
-	$tmp=str_replace("<!--%SearchResultsNumber%-->",count($output),$html);
-	$html=$tmp;
-	$tmp=str_replace("<!--%SearchResultsMultiplicity%-->",(count($output)>1)?"s":"",$html);
-	$html=$tmp;
+
+
+	$tmp = str_replace("<!--%TestString%-->",serialize($Results),$search);
+	$html = $tmp;
+
+
+	#$Results = mysqli_fetch_array($Experiments);
+	//echo serialize($Results);
+	// foreach($Experiments as $item){
+	// 	print($item);
+	// 	}
+	// $tmp = str_ireplace("<!--%TestString%-->",serialize($Experiments),$html);
+	// $html = $tmp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	# str_replace("<!--%TestString%-->", implode(',', $Results), $html);
+	// $Results = array();
+	// $i = 0;
+ //    while($Results[] = json_encode(mysqli_fetch_assoc($Experiments))) {
+ //      // pass
+ //    	$i++;
+ //    	if($i > 100) { break; }
+ //    }
+
+
+
+
+
+	# THE FOLLOWING CODE FUNCTIONALITY IS BEING MOVED TO JS	
+	// $Dictionary = array();
+	// $output = array();
+	// foreach($Experiments as $item) {
+	// 	array_push($Dictionary,$item[0]);
+	// }
+	// foreach($Dictionary as $list) {
+	// 	print($list);
+	// 	break;
+		// foreach($list as $location_set){
+		// 	if (similar($query,$location_set)) {
+		// 		array_push($output,$list);
+			// }
+		#}
+	#} 
+
+
+
+
+	//$tmp=str_replace("<!--%SearchResultsNumber%-->",count($output),$html);
+	//$html=$tmp;
+	//$tmp=str_replace("<!--%SearchResultsMultiplicity%-->",(count($output)>1)?"s":"",$html);
+	//$html=$tmp;
 	print $html;
 }
 	
@@ -1593,7 +1666,4 @@ function similar($query,$location)
 	}
 	return array_sum($output)<5;
 }
-
-
-
 ?>

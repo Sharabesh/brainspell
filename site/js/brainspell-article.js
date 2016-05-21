@@ -1,4 +1,5 @@
 var debug=0;
+alert(LocationData)
 
 var	tasks;
 var	cognitive;
