@@ -42,8 +42,6 @@
 		</span>
 		<!-- /StereotaxicViewer -->
 		
-		&nbsp;
-		
 		<!-- MeshViewer -->
 		<span style="display:inline-block">
 			<table style="height:200px;border:1px solid lightGrey;padding:5px">
@@ -86,15 +84,22 @@
 <script src="js/jquery-1.10.2.min.js"></script>
 
 <!-- BrainSpell Search and Search Results-->
+<script src="php/brainspell.php"></script>
+<script>
+	var Test = "<!--%TestString%-->"; 
+	console.log(Test);
+</script>
+
 <script src="js/brainspell-search.js"></script>
+
 <script>
 	// BrainSpell search and search results page initialisation
 	setSearchString("<!--%SearchString%-->");
-	var Test = setTestString("<!--%TestString%-->"); 
-	console.log(Test)
+
 	configureTemplateImage();
 	configureLocationsImage();
 	loadTemplate();
 	initTranslucent();
 	loadLocations();
 </script>
+

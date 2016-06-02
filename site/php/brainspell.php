@@ -1593,7 +1593,7 @@ function location_search($query)
 	}
 
 
-	$tmp = str_replace("<!--%TestString%-->",serialize($Results),$search);
+	$tmp = str_replace("<!--%TestString%-->",serialize($Results[0]),$search);
 	$html = $tmp;
 
 

@@ -1,6 +1,4 @@
 var debug=0;
-alert(LocationData)
-
 var	tasks;
 var	cognitive;
 var	behavioural;
@@ -1661,3 +1659,22 @@ function render(iExp) {
 	// actually render the scene
 	exp[iExp].render.renderer.render(exp[iExp].render.scene,exp[iExp].render.camera );
 }
+
+console.log(Test)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
