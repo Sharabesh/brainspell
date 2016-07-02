@@ -1585,7 +1585,7 @@ function location_search($query)
 	$tmp=str_replace("<!--ROOTDIR-->",$rootdir,$html);
 	$html=$tmp;
 
-	#####Temporarily moved this to the bottom of the file #####
+	#####This collects all experiments with the proper position #####
 
 	$Experiments = mysqli_query($connection,"SELECT Experiments FROM Articles");
 	$Results = array();
@@ -1594,19 +1594,22 @@ function location_search($query)
 			array_push($Results,$row);
 		}
 
-	$Results = array_slice($Results,0,1000);
-
+	// echo strpos(serialize($Results[0]),'10,56,24');
 	$contains = array();
 	$position = array();
 	$i = 0;
 	while($i<count($Results)){
-		if (strpos($Results[$i],$query)){
+		if (strpos(serialize($Results[$i]),'10,56,24')!=false){ #change string to $query later
 			array_push($contains,$Results[$i]);
 			array_push($position,$i);
 		}
+		$i = $i + 1;
 	}
-	echo array_slice($contains,0,3);
+	echo serialize(array_slice($contains,0,3));
 
+
+
+	############ The rest of this is for the other functionality##########
 	
 	$tmp = str_replace("<!--%TestString%-->",serialize($Results[0]),$search);
 	$html = $tmp;
