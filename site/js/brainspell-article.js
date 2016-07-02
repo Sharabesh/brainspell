@@ -378,6 +378,7 @@ function downloadArticle() {
 }
 function downloadArticleXML(callback)
 {
+
 	/*
 		Download article metadata from PubMed
 	*/
@@ -1660,7 +1661,7 @@ function render(iExp) {
 	exp[iExp].render.renderer.render(exp[iExp].render.scene,exp[iExp].render.camera );
 }
 
-console.log(Test)
+
 
 
 

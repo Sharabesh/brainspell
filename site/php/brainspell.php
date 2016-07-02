@@ -1577,6 +1577,7 @@ function location_search($query)
 	global $rootdir;
 	global $dbname;
 	global $connection;
+	global $test;
 	$search = file_get_contents($_SERVER['DOCUMENT_ROOT'].$rootdir."templates/search.html");
 	$html = file_get_contents($_SERVER['DOCUMENT_ROOT'].$rootdir."templates/base.html");
 	$tmp=str_replace("<!--Core-->",$search,$html);
@@ -1584,19 +1585,34 @@ function location_search($query)
 	$tmp=str_replace("<!--ROOTDIR-->",$rootdir,$html);
 	$html=$tmp;
 
+	#####Temporarily moved this to the bottom of the file #####
 
 	$Experiments = mysqli_query($connection,"SELECT Experiments FROM Articles");
 	$Results = array();
 	while($row = mysqli_fetch_array($Experiments))
-	{
-		array_push($Results,$row);
+		{
+			array_push($Results,$row);
+		}
+
+	$Results = array_slice($Results,0,1000);
+
+	$contains = array();
+	$position = array();
+	$i = 0;
+	while($i<count($Results)){
+		if (strpos($Results[$i],$query)){
+			array_push($contains,$Results[$i]);
+			array_push($position,$i);
+		}
 	}
+	echo array_slice($contains,0,3);
 
-
+	
 	$tmp = str_replace("<!--%TestString%-->",serialize($Results[0]),$search);
 	$html = $tmp;
+	
 
-
+	print $html;
 	#$Results = mysqli_fetch_array($Experiments);
 	//echo serialize($Results);
 	// foreach($Experiments as $item){
@@ -1604,12 +1620,6 @@ function location_search($query)
 	// 	}
 	// $tmp = str_ireplace("<!--%TestString%-->",serialize($Experiments),$html);
 	// $html = $tmp;
-
-
-
-
-
-
 
 
 
@@ -1655,7 +1665,7 @@ function location_search($query)
 	//$html=$tmp;
 	//$tmp=str_replace("<!--%SearchResultsMultiplicity%-->",(count($output)>1)?"s":"",$html);
 	//$html=$tmp;
-	print $html;
+	
 }
 	
 function similar($query,$location) 
@@ -1666,4 +1676,23 @@ function similar($query,$location)
 	}
 	return array_sum($output)<5;
 }
+
+// global $connection;
+// #This should be in the Search_by_location function
+// #but i'm adding it here to try to make it automatic 
+// $Experiments = mysqli_query($connection,"SELECT Experiments FROM Articles");
+// $Results = array();
+// while($row = mysqli_fetch_array($Experiments))
+// 	{
+// 		array_push($Results,$row);
+// 	}
+// $test0 = serialize($Results[0]);
+// echo $test0;
+
+
+
+
+
+
+
 ?>

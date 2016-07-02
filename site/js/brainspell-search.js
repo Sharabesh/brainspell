@@ -703,10 +703,10 @@ function render() {
 }
 
 
+var results = <?php echo json_encode($test0) ?>;
+alert(results)
 
-
-
-alert(Test);
+alert("<?php echo $test ?>");
 
 
 

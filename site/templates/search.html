@@ -84,10 +84,15 @@
 <script src="js/jquery-1.10.2.min.js"></script>
 
 <!-- BrainSpell Search and Search Results-->
-<script src="php/brainspell.php"></script>
 <script>
 	var Test = "<!--%TestString%-->"; 
 	console.log(Test);
+</script>
+
+<script type="text/javascript">
+	// pass PHP variable declared above to JavaScript variable
+	var results = <?php echo json_encode($test0) ?>;
+	alert(test0);
 </script>
 
 <script src="js/brainspell-search.js"></script>
@@ -95,7 +100,6 @@
 <script>
 	// BrainSpell search and search results page initialisation
 	setSearchString("<!--%SearchString%-->");
-
 	configureTemplateImage();
 	configureLocationsImage();
 	loadTemplate();
