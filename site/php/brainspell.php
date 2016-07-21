@@ -1599,13 +1599,14 @@ function location_search($query)
 	$position = array();
 	$i = 0;
 	while($i<count($Results)){
-		if (strpos(serialize($Results[$i]),'10,56,24')!=false){ #change string to $query later
+		if (strpos(serialize($Results[$i]),$query)!=false){ #change string to $query later
 			array_push($contains,$Results[$i]);
 			array_push($position,$i);
 		}
 		$i = $i + 1;
 	}
 	echo serialize(array_slice($contains,0,3));
+	echo count($position);
 
 
 
